@@ -6,7 +6,6 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 31
-        versionName "5.10.0_opensource"
     }
 
     buildTypes {
@@ -21,11 +20,12 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
-
-    lintOptions {
+    namespace 'io.rong.recognizer'
+    lint {
         abortOnError false
-        baseline file("lint-baseline.xml")
+        baseline file('lint-baseline.xml')
     }
+
 }
 
 dependencies {

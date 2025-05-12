@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.multidex.MultiDexApplication;
+
 import cn.rongcloud.im.common.ErrorCode;
 import cn.rongcloud.im.contact.PhoneContactManager;
 import cn.rongcloud.im.im.IMManager;
@@ -23,15 +26,18 @@ import cn.rongcloud.im.utils.CheckPermissionUtils;
 import cn.rongcloud.im.utils.DataCenter;
 import cn.rongcloud.im.utils.SearchUtils;
 import cn.rongcloud.im.wx.WXManager;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.facebook.stetho.common.LogUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
+
 import io.rong.common.utils.SSLUtils;
 import io.rong.imkit.GlideKitImageEngine;
 import io.rong.imkit.IMCenter;
@@ -43,9 +49,11 @@ import io.rong.imlib.RongCoreClientImpl;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.InitOption;
 import io.rong.imlib.model.Message;
+
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -55,7 +63,9 @@ import javax.net.ssl.X509TrustManager;
 
 public class SealApp extends MultiDexApplication {
     private static SealApp appInstance;
-    /** 应用是否在后台 */
+    /**
+     * 应用是否在后台
+     */
     private boolean isAppInForeground;
 
     private String lastVisibleActivityName;
@@ -113,24 +123,24 @@ public class SealApp extends MultiDexApplication {
 
     private SSLContext getSslContext() {
         TrustManager tm[] = {
-            new X509TrustManager() {
-                @Override
-                public void checkClientTrusted(X509Certificate[] chain, String authType)
-                        throws CertificateException {
-                    Log.d("checkClientTrusted", "authType:" + authType);
-                }
+                new X509TrustManager() {
+                    @Override
+                    public void checkClientTrusted(X509Certificate[] chain, String authType)
+                            throws CertificateException {
+                        Log.d("checkClientTrusted", "authType:" + authType);
+                    }
 
-                @Override
-                public void checkServerTrusted(X509Certificate[] chain, String authType)
-                        throws CertificateException {
-                    Log.d("checkServerTrusted", "authType:" + authType);
-                }
+                    @Override
+                    public void checkServerTrusted(X509Certificate[] chain, String authType)
+                            throws CertificateException {
+                        Log.d("checkServerTrusted", "authType:" + authType);
+                    }
 
-                @Override
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
+                    @Override
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return new X509Certificate[0];
+                    }
                 }
-            }
         };
 
         SSLContext mySSLContext = null;
@@ -265,6 +275,47 @@ public class SealApp extends MultiDexApplication {
 
         // UMeng初始化
         UMConfigure.preInit(this, BuildConfig.SEALTALK_UMENG_APPKEY, null);
+
+        registerActivity();
+    }
+
+    private void registerActivity() {
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+
+            }
+
+            @Override
+            public void onActivityStarted(@NonNull Activity activity) {
+                LogUtil.e("Started" + activity.getClass().getSimpleName());
+            }
+
+            @Override
+            public void onActivityResumed(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(@NonNull Activity activity) {
+
+            }
+        });
     }
 
     private void initDataCenter() {
@@ -322,7 +373,9 @@ public class SealApp extends MultiDexApplication {
         };
     }
 
-    /** 检查是否正确的配置 SealTalk 中的一些必要环境。 */
+    /**
+     * 检查是否正确的配置 SealTalk 中的一些必要环境。
+     */
     private void checkSealConfig() {
         if (!BuildConfig.SEALTALK_SERVER.startsWith("http")) {
             Log.e(
@@ -345,7 +398,9 @@ public class SealApp extends MultiDexApplication {
         }
     }
 
-    /** 监听应用是否转为后台 */
+    /**
+     * 监听应用是否转为后台
+     */
     private void observeAppInBackground() {
         registerActivityLifecycleCallbacks(
                 new ActivityLifecycleCallbacks() {
@@ -368,7 +423,8 @@ public class SealApp extends MultiDexApplication {
                     }
 
                     @Override
-                    public void onActivityStarted(Activity activity) {}
+                    public void onActivityStarted(Activity activity) {
+                    }
 
                     @Override
                     public void onActivityResumed(Activity activity) {
@@ -398,10 +454,12 @@ public class SealApp extends MultiDexApplication {
                     }
 
                     @Override
-                    public void onActivityStopped(Activity activity) {}
+                    public void onActivityStopped(Activity activity) {
+                    }
 
                     @Override
-                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {}
+                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                    }
 
                     @Override
                     public void onActivityDestroyed(Activity activity) {

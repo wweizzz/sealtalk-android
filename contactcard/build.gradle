@@ -6,7 +6,6 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 31
-        versionName "5.10.0_opensource"
     }
 
     buildTypes {
@@ -19,9 +18,10 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-    lintOptions {
+    namespace 'io.rong.contactcard'
+    lint {
         abortOnError false
-        baseline file("lint-baseline.xml")
+        baseline file('lint-baseline.xml')
     }
 }
 

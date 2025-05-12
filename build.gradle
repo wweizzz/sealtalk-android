@@ -14,7 +14,7 @@ buildscript {
         // 华为推送需要开启下面注释
         // classpath 'com.huawei.agconnect:agcp:1.1.1.300'
 
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:8.9.2'
 
 
         // just for GCM.

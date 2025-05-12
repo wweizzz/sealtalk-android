@@ -69,18 +69,20 @@ android {
         targetCompatibility = '1.8'
     }
     packagingOptions {
-        exclude 'assets/ap1.data'
+        resources {
+            excludes += ['assets/ap1.data']
+        }
     }
-    buildToolsVersion = '28.0.3'
 
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
-    lintOptions {
-        checkReleaseBuilds false
+    namespace 'cn.rongcloud.im'
+    lint {
         abortOnError false
+        checkReleaseBuilds false
     }
 }
 

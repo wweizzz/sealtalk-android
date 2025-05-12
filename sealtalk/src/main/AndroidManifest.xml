@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.rongcloud.im">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <queries>
         <intent>
             <action android:name="com.hihonor.push.action.BIND_PUSH_SERVICE" />
