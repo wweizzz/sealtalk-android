@@ -283,12 +283,12 @@ public class SealApp extends MultiDexApplication {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
-
+                LogUtil.e("onActivityCreated : " + activity.getClass().getSimpleName());
             }
 
             @Override
             public void onActivityStarted(@NonNull Activity activity) {
-                LogUtil.e("Started" + activity.getClass().getSimpleName());
+
             }
 
             @Override

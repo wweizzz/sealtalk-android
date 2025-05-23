@@ -5,11 +5,13 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+
 import cn.rongcloud.im.db.model.GroupEntity;
 import cn.rongcloud.im.db.model.GroupExitedMemberInfo;
 import cn.rongcloud.im.db.model.GroupMemberInfoDes;
 import cn.rongcloud.im.db.model.GroupNoticeInfo;
 import cn.rongcloud.im.ui.adapter.models.SearchGroupMember;
+
 import java.util.List;
 
 @Dao
